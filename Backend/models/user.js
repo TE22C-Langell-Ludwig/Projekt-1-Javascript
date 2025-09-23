@@ -9,10 +9,11 @@ const UserBlueprint = new mongoose.Schema({
     },
 
 
-    role:{
+    admin:{
 
         type: Boolean,
-        required: true
+        required: true,
+        default: false
     },
 
 
