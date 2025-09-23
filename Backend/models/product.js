@@ -1,19 +1,20 @@
 const mongoose = require('mongoose')
 const ProductBlueprint = new mongoose.Schema({
-    name{
+    name: {
         type: string,
         required: true,
     },
-    category{
+    category: {
         type: string,
         required : true,
     },
-    quantity{
+    quantity: {
         type:int,
         required: true,
 
-    }
-    AddedAt{
+    },
+
+    AddedAt: {
         type: int,
         required: true,
     },
