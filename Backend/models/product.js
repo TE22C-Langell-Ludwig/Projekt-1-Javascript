@@ -19,3 +19,5 @@ const ProductBlueprint = new mongoose.Schema({
     },
 }, {timestamps : true});
 module.exports = mongoose.model('Product' ProductBlueprint)
+
+// Test
