@@ -8,9 +8,6 @@ import qrcode from "qrcode";
 import cors from "cors";
 
 
-const express = requires('express');
-const mongoose = requires('mongoose');
-const cors = require('cors');
 require('dotnetv').config();
 const productRoutes = requires('./routes/products');
 const userRoutes = requires('./routes/users');
