@@ -1,7 +1,7 @@
 <template>
     <div class="login">
         <h2>Log in</h2>
-        <input v-model="name" placeholder="name">
+        <input v-model="email" placeholder="email">
         <input v-model="password" type="password" placeholder="Password"> 
         <input v-model="token" placeholder="2FA code">
         <button @click="login">Log in</button>
@@ -12,14 +12,14 @@
 import axios from 'axios';
 export default{
     data(){
-        return { name: "", password: "", token: "", message: "", }
+        return { email: "", password: "", token: "", message: "", }
     },
     methods: {
         async login(){
             try{
                 const res = await
                 axios.post("http://localhost:5000/api/login", {
-                    name: this.name,
+                    email: this.email,
                     password: this.password,
                     token: this.token
 

@@ -2,7 +2,8 @@
    <div class="register">
     <h2>Register account</h2>
     <input v-model="name" placeholder="Name">
-    <input v-model="password" type="password" placeholder="Password">
+    <input v-model="email" placeholder="Email" />
+    <input v-model="password" type="password" placeholder="Password" />
     <p>Are you admin?</p>
     <input v-model="admin" type="checkbox" class="admincheck">
     <button @click="register">Register</button>
@@ -24,6 +25,7 @@ export default{
       const res =await
       axios.post("http://localhost:5000/api/register", {
         name: this.name,
+        email: this.email,
         password: this.password,
         admin: this.admin
       });
