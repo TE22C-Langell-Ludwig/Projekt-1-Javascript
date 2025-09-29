@@ -1,24 +1,24 @@
-const mongoose = require('mongoose')
-const ProductBlueprint = new mongoose.Schema({
-    name: {
-        type: string,
-        required: true,
-    },
-    category: {
-        type: string,
-        required : true,
-    },
-    quantity: {
-        type:int,
-        required: true,
+import mongoose from 'mongoose';
 
-    },
+const ProductSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  category: {
+    type: String,
+    required: true
+  },
+  quantity: {
+    type: Number,
+    required: true
+  },
+  AddedAt: {
+    type: Date,
+    required: true
+  }
+}, { timestamps: true });
 
-    AddedAt: {
-        type: int,
-        required: true,
-    },
-}, {timestamps : true});
-module.exports = mongoose.model('Product', ProductBlueprint)
+const Product = mongoose.model('Product', ProductSchema);
 
-// Test
+export default Product;

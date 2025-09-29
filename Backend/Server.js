@@ -6,47 +6,56 @@ import jwt from "jsonwebtoken";
 import speakeasy from "speakeasy";
 import qrcode from "qrcode";
 import cors from "cors";
+import dotenv from 'dotenv';
 
+import User from './models/user.js';
+import productRoutes from './routes/products.js';
+import userRoutes from './routes/users.js';
 
-require('dotnetv').config();
-const productRoutes = requires('./routes/products');
-const userRoutes = requires('./routes/users');
+dotenv.config();
 
 const app = express();
+app.use(cors());
+app.use(express.json());
+const PORT = process.env.PORT || 5000;
 
-const PORT = process.env.PORT || 3000;
 
-// Middleware
-
-app.use(cors()); // Tillåt cross-origin requests
-
-app.use(express.json()); // För att kunna tolka JSON i requets body
-
-// Databasanslutning
-
-const UserSchema = new mongoose.Schema({
-    email: String,
-    password: String,
-    secret: String
-});
-const User = mongoose.model("User", UserSchema);
 // Registrering
 app.post("/api/register", async (req, res) => {
-    const { email, password } = req.body;
+  try {
+    const { name, email, password } = req.body;
+    if (!name || !email || !password) {
+      return res.status(400).json({ error: "Name, email and password are required" });
+    }
+
     const hashed = await bcrypt.hash(password, 10);
     const secret = speakeasy.generateSecret({ length: 20 });
+
     const newUser = new User({
-        email, password: hashed, secret:
-            secret.base32
+      name,
+      email,
+      password: hashed,
+      secret: secret.base32
     });
+
     await newUser.save();
+
     qrcode.toDataURL(secret.otpauth_url, (err, data) => {
-        res.json({
-            message: "User created", qr: data, secret:
-                secret.base32
-        });
+      if (err) return res.status(500).json({ error: "Failed to generate QR code" });
+
+      res.json({
+        message: "User created",
+        qr: data,
+        secret: secret.base32
+      });
     });
+  } catch (err) {
+    console.error("Register error:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
+
+
 // Login + 2FA
 app.post("/api/login", async (req, res) => {
     const { email, password, token } = req.body;
@@ -74,16 +83,16 @@ app.post("/api/login", async (req, res) => {
 });
 
 mongoose.connect(process.env.MONGO_URI)
-.then(()=> console.log('Connected to MongoDB Atlas'))
+    .then(() => console.log('Connected to MongoDB Atlas'))
 
-.catch(err=>console.error('Could not connect to MongoDB Atlas', err));
+    .catch(err => console.error('Could not connect to MongoDB Atlas', err));
 
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 
 
 
-app.listen(PORT, () =>{
+app.listen(PORT, () => {
 
     console.log(`server is running on port ${PORT}`);
 

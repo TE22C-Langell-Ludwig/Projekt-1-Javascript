@@ -1,28 +1,29 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const UserBlueprint = new mongoose.Schema({
-
-    name:{
-
+const UserSchema = new mongoose.Schema({
+    name: {
         type: String,
         required: true,
     },
-
-
-    admin:{
-
+    admin: {
         type: Boolean,
         required: true,
         default: false
     },
-
-
-    password:{
-
+    password: {
         type: String,
         required: true
+    },
+    secret: {
+        type: String,
+        required: false
+    },
+    twoFactorEnabled: {
+        type: Boolean,
+        default: false
     }
+}, { timestamps: true });
 
-}, {timeseries: true});
+const User = mongoose.model('User', UserSchema);
 
-module.exports=mongoose.model('User', UserSchema);
+export default User;

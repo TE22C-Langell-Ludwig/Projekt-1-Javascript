@@ -1,62 +1,59 @@
-
-
-const express = require('express');
-const user = require('../models/user');
-const { use } = require('react');
+import express from 'express';
+import User from '../models/user.js';
 
 const router = express.Router();
 
-const User = request('../models/user')
-
-
-//GET
-
-
+// GET
 router.get('/', async (req, res) => {
-
-    const users = await User.find().sort({ createdAt: -1 });
-
-    res.json(users);
-
+    try {
+        const users = await User.find().sort({ createdAt: -1 });
+        res.json(users);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to fetch users' });
+    }
 });
 
 // POST
-
 router.post('/', async (req, res) => {
+    try {
+        const newUser = new User({
+            name: req.body.name,
+            password: req.body.password,
+            admin: req.body.admin || false
+        });
 
-    const newUser = new User({
-        teext: req.body.text
-    });
-
-    const saveUser = await newUser.save();
-
-    res.sendStatus(201).json(saveUser);
-
+        const savedUser = await newUser.save();
+        res.status(201).json(savedUser);
+    } catch (err) {
+        res.status(400).json({ error: 'Failed to create user' });
+    }
 });
 
 // PUT
+router.put('/:id', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (!user) return res.status(404).json({ error: 'User not found' });
 
-router.put('/:id', async (req,res) =>{ 
+        user.admin = !user.admin;
+        await user.save();
 
-
-    const user = await User.findById(req.params.id);
-
-    user.admin = !user.admin;
-
-    await user.save();
-
-    res.json(user)
+        res.json(user);
+    } catch (err) {
+        res.status(400).json({ error: 'Failed to update user' });
+    }
 });
 
-// DELETE
-
+// DELETE user
 router.delete('/:id', async (req, res) => {
+    try {
+        const deletedUser = await User.findByIdAndDelete(req.params.id);
+        if (!deletedUser) return res.status(404).json({ error: 'User not found' });
 
-    const deleteUser = await User.findByIdAndDelete(req.params.id);
-
-    res.json({message: 'User deleted', id: deleteUser._id});
-
+        res.json({ message: 'User deleted', id: deletedUser._id });
+    } catch (err) {
+        res.status(400).json({ error: 'Failed to delete user' });
+    }
 });
 
-module.exports = router;
-
+export default router;
