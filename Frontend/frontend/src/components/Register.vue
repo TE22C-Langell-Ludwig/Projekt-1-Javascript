@@ -1,9 +1,10 @@
-<template class="templa">
+<template>
    <div class="register">
     <h2>Register account</h2>
     <input v-model="name" placeholder="Name">
     <input v-model="password" type="password" placeholder="Password">
-    <input v-model="admin" type="checkbox" class="admincheck">Are you admin?</input>
+    <p>Are you admin?</p>
+    <input v-model="admin" type="checkbox" class="admincheck">
     <button @click="register">Register</button>
     <div v-if="qr">
       <h3>Scan in Google Authenticator</h3>
@@ -34,12 +35,14 @@ export default{
 .register{
      display: flex;
     flex-direction: column;
-    width: 15%;
+    width: 25%;
     background-color: darkkhaki;
-    width: 15%;
     align-content: space-around;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;  
+    margin-left: 35%;
+    margin-right: 40%;
 }
 .admincheck{
   width: 10%;

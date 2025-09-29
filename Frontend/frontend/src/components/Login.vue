@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="login">
         <h2>Log in</h2>
         <input v-model="name" placeholder="name">
         <input v-model="password" type="password" placeholder="Password"> 
@@ -33,8 +33,32 @@ export default{
 };
 </script>
 <style>
+.login{
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    height: 30%;
+    background-color: darkkhaki;
+    align-content: space-around;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;  
+    margin-left: 35%;
+    margin-right: 40%;
+    font-size: 250%;
+}
+html{
+height: auto;
+}
 
+div{
+height: auto;
+}
+input{
+    margin: 5px;
 
-
-
+}
+button{
+    margin-top: 3px;
+}
 </style>

@@ -16,7 +16,7 @@
   flex-direction: row;
   display: flex;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: x-large;
+  font-size: 125%;
   gap: 20px;
   width: 45%;
   height: 45px;
