@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="login">
         <h2>Log in</h2>
-        <input v-model="email" placeholder="email">
+        <input v-model="name" placeholder="name">
         <input v-model="password" type="password" placeholder="Password"> 
         <input v-model="token" placeholder="2FA code">
         <button @click="login">Log in</button>
@@ -12,18 +12,19 @@
 import axios from 'axios';
 export default{
     data(){
-        return { email: "", password: "", token: "", message: "", }
+        return { name: "", password: "", token: "", message: "", }
     },
     methods: {
         async login(){
             try{
                 const res = await
                 axios.post("http://localhost:5000/api/login", {
-                    email: this.email,
+                    name: this.name,
                     password: this.password,
                     token: this.token
+
                 });
-                this.message = "inlogning lyckades token: " + res.data.token;
+                this.message = "inloggning lyckades token: " + res.data.token;
             } catch {
                 this.message = "felaktiga uppgifter eller 2FA-kod"
             }
@@ -31,3 +32,33 @@ export default{
     }
 };
 </script>
+<style>
+.login{
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    height: 30%;
+    background-color: darkkhaki;
+    align-content: space-around;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;  
+    margin-left: 35%;
+    margin-right: 40%;
+    font-size: 250%;
+}
+html{
+height: auto;
+}
+
+div{
+height: auto;
+}
+input{
+    margin: 5px;
+
+}
+button{
+    margin-top: 3px;
+}
+</style>

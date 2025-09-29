@@ -7,21 +7,25 @@
       <RouterLink to="/Login">Login page</RouterLink>
       <RouterLink to="/Wares">Warehouse page</RouterLink>
     </nav>
-    <router-view/>
+    <router-view />
   </div>
-
 </template>
 
 <style scoped>
-.bar{
-flex-direction: row;
-display: flex;
-width: 50%;
-font-family: Verdana, Geneva, Tahoma, sans-serif;
-font-size: x-large;
-gap: 20px;
+.bar {
+  flex-direction: row;
+  display: flex;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 125%;
+  gap: 20px;
+  width: 45%;
+  height: 45px;
+  margin-left: 25%;
+  margin-right: 25%;
+  border: 2px, solid cornflowerblue;
+  background-color: aliceblue;
+  align-items: center;
+  justify-content: space-evenly;
+  
 }
-
-
 </style>
- 
