@@ -9,6 +9,10 @@
     </div>
 </template>
 <script>
+
+
+
+
 import axios from 'axios';
 export default{
     data(){
@@ -24,7 +28,7 @@ export default{
                     token: this.token
 
                 });
-                this.message = "inloggning lyckades token: " + res.data.token;
+                this.message = "inloggning lyckades";
             } catch {
                 this.message = "felaktiga uppgifter eller 2FA-kod"
             }

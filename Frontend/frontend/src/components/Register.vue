@@ -18,7 +18,7 @@
 import axios from "axios";
 export default{
   data(){
-    return {name: "", password: "", qr: null};
+    return {name: "", password: "", admin:false, qr: null};
   },
   methods: {
     async register(){
@@ -57,6 +57,9 @@ body{
   width: 100%; 
   height: auto;
 }
+input{
 
+  
+}
 
 </style>

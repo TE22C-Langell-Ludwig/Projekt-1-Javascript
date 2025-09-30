@@ -23,7 +23,7 @@ const PORT = process.env.PORT || 5000;
 // Registrering
 app.post("/api/register", async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, admin } = req.body;
     if (!name || !email || !password) {
       return res.status(400).json({ error: "Name, email and password are required" });
     }
@@ -35,6 +35,7 @@ app.post("/api/register", async (req, res) => {
       name,
       email,
       password: hashed,
+      admin: admin || false,
       secret: secret.base32
     });
 

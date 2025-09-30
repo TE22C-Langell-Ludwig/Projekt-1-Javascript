@@ -18,8 +18,9 @@ router.post('/', async (req, res) => {
     try {
         const newUser = new User({
             name: req.body.name,
+            email: req.body.email,
             password: req.body.password,
-            admin: req.body.admin || false
+            admin: req.body.admin
         });
 
         const savedUser = await newUser.save();

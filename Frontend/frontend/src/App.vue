@@ -11,14 +11,13 @@
   </div>
 </template>
 
-<style scoped>
+<style scoped> 
 .bar {
   flex-direction: row;
   display: flex;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 125%;
   gap: 20px;
-  width: 45%;
   height: 45px;
   margin-left: 25%;
   margin-right: 25%;
