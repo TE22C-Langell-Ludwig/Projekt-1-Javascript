@@ -36,16 +36,16 @@ export default{
 </script>
 <style>
 .register{
-     display: flex;
-    flex-direction: column;
-    width: 25%;
-    background-color: darkkhaki;
-    align-content: space-around;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;  
-    margin-left: 35%;
-    margin-right: 40%;
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  background-color: darkkhaki;
+  align-content: space-around;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;  
+  margin-left: 35%;
+  margin-right: 40%;
 }
 .admincheck{
   width: 10%;
@@ -57,9 +57,4 @@ body{
   width: 100%; 
   height: auto;
 }
-input{
-
-  
-}
-
 </style>
