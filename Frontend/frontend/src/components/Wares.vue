@@ -10,9 +10,8 @@
         </div>
         <div class="wares column">
             <p>List of wares</p>
-            <ul v-for="ware in list">
-            <li></li>
-            <li></li>
+            <ul>
+            <li v-for= "item in warelist">{{ item.name }}, {{ item.quantity }} in stock</li>
             </ul>
         </div>
         <div class="adding column">
@@ -34,23 +33,23 @@ export default{
     methods: {
         async additem(){
             try{
-                axios.post("http://localhost:5000/api/products", {
+                await axios.post("http://localhost:5000/api/products", {
                     name: this.name,
                     category: this.category,
                     quantity: this.quantity,
                 });
                 this.message = "produkt tillagd";
+                this.updatelist();
             } catch {
                 this.message = "Någonting gick fel"
             }
         },
         async updatelist(){
             try {
-              const res =await fetch ('${import.meta.env.VITE_API_BASE_URL}/api/products', {
-              
-              })
+              const res = await axios.get("http://localhost:5000/api/products");
+              this.warelist =res.data;
             } catch (error) {
-              
+              console.error("something Went Wrong Bungus")
             }
         }  
     }
