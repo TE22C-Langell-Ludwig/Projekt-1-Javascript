@@ -10,9 +10,6 @@
 </template>
 <script>
 
-
-
-
 import axios from 'axios';
 export default{
     data(){
@@ -22,7 +19,7 @@ export default{
         async login(){
             try{
                 const res = await
-                axios.post("http://localhost:5000/api/login", {
+               axios.post("http://localhost:5000/api/login", {
                     email: this.email,
                     password: this.password,
                     token: this.token
@@ -52,17 +49,18 @@ export default{
     font-size: 250%;
 }
 html{
-height: auto;
+    height: auto;
 }
-
 div{
-height: auto;
+    height: auto;
 }
 input{
     margin: 5px;
-
 }
 button{
     margin-top: 3px;
+}
+button:hover {
+    cursor: pointer;
 }
 </style>

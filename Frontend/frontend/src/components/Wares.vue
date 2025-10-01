@@ -10,7 +10,7 @@
         </div>
         <div class="wares column">
             <p>List of wares</p>
-            <ul>
+            <ul v-for="ware in list">
             <li></li>
             <li></li>
             </ul>
@@ -29,7 +29,7 @@
 import axios from 'axios';
 export default{
     data(){
-        return { name: "", category: "", quantity: "", AddedAt: "", }
+        return { name: "", category: "", quantity: "", AddedAt: "",warelist: [] }
     },
     methods: {
         async additem(){
@@ -43,7 +43,16 @@ export default{
             } catch {
                 this.message = "Någonting gick fel"
             }
-        }
+        },
+        async updatelist(){
+            try {
+              const res =await fetch ('${import.meta.env.VITE_API_BASE_URL}/api/products', {
+              
+              })
+            } catch (error) {
+              
+            }
+        }  
     }
 };
 
@@ -54,95 +63,91 @@ export default{
 
 <style>
 :root {
-    --primary-bg: darkkhaki;       /* darkkhaki-like */
-    --secondary-bg: #969650;     /* rgb(150, 150, 80) */
-    --text-color: #000;
-    --title-size: 2.5rem;
-    --body-font-size: 1.2rem;
-    --input-padding: 8px;
-    --container-gap: 2rem;
-    --border-radius: 6px;
+  --primary-bg: darkkhaki;       /* darkkhaki-like */
+  --secondary-bg: #969650;     /* rgb(150, 150, 80) */
+  --text-color: #000;
+  --title-size: 2.5rem;
+  --body-font-size: 1.2rem;
+  --input-padding: 8px;
+  --container-gap: 2rem;
+  --border-radius: 6px;
 }
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    border-radius: 6px;
-    font-family: Arial, sans-serif;
-    color: var(--text-color);
+  box-sizing: border-box;
+  margin: 0;
+  border-radius: 6px;
+  font-family: Arial, sans-serif;
+  color: var(--text-color);
 }
 
 body {
-    background-color: var(--primary-bg);
+  background-color: var(--primary-bg);
 }
 
 #app {
-    padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .title {
-    text-align: center;
-    font-size: var(--title-size);
-    margin-bottom: 2rem;
-    font-weight: bold;
+  text-align: center;
+  font-size: var(--title-size);
+  margin-bottom: 2rem;
+  font-weight: bold;
 }
 
 .nav {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
 }
 
 .nav a {
-    text-decoration: none;
-    color: #000000;
-    background: #ffffff;
-    padding: 6px 12px;
-    border-radius: var(--border-radius);
+  text-decoration: none;
+  color: #000000;
+  background: #ffffff;
+  padding: 6px 12px;
+  border-radius: var(--border-radius);
 }
 
 .columns {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: var(--container-gap);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--container-gap);
 }
 
 .column {
-    background-color: var(--secondary-bg);
-    flex: 1;
-    min-width: 280px;
-    max-width: 350px;
-    padding: 1rem;
-    border-radius: var(--border-radius);
+  background-color: var(--secondary-bg);
+  flex: 1;
+  min-width: 280px;
+  max-width: 350px;
+  padding: 1rem;
+  border-radius: var(--border-radius);
 }
 
 .column h2 {
-    margin-bottom: 1rem;
-    font-size: 1.3rem;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
 }
 
-.column input[type="text"],
-.column button {
-    width: 100%;
-    padding: var(--input-padding);
-    margin-bottom: 0.5rem;
-    border: none;
-    border-radius: var(--border-radius);
+.column input[type="text"], .column button {
+  width: 100%;
+  padding: var(--input-padding);
+  margin-bottom: 0.5rem;
+  border: none;
+  border-radius: var(--border-radius);
 }
-
-.column button {
-    background-color: #333;
-    color: white;
-    cursor: pointer;
+.column input[type="button"]:hover {
+  cursor: pointer;
 }
 
 .column ul {
-    padding-left: 1rem;
-    list-style-type: disc;
+  padding-left: 1rem;
+  list-style-type: disc;
 }
 
 </style>
