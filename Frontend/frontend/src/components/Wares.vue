@@ -32,6 +32,45 @@ export default{
         return { name: "", category: "", quantity: "", AddedAt: "", }
     },
     methods: {
+        /*
+            method Get all items from db in array
+
+            if item adding is alike anything in array 
+
+            add the count of current to the previous
+
+            else 
+            
+            just add in normal way 
+
+
+            async additem(){
+            
+            axios.fetch("http://localhost:5000/api/products", {
+                    name:  this.name,
+                    category: this.category,
+                    quantity: this.quantity,
+                });
+            
+
+                
+            const array = Array()
+
+            if (){
+            }
+            try{
+                axios.post("http://localhost:5000/api/products", {
+                    name: this.name,
+                    category: this.category,
+                    quantity: this.quantity,
+                });
+                this.message = "produkt tillagd";
+            } catch {
+                this.message = "Någonting gick fel"
+            }
+        }
+
+        */
         async additem(){
             try{
                 axios.post("http://localhost:5000/api/products", {
