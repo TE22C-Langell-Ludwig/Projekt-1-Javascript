@@ -30,6 +30,9 @@ export default{
     data(){
         return { name: "", category: "", quantity: "", AddedAt: "",warelist: [] }
     },
+    mounted(){
+      this.updatelist();
+    },
     methods: {
         /*
             method Get all items from db in array
