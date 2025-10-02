@@ -1,8 +1,14 @@
 Inventarie Manager App 
-
-Applikation för ett varuhus
-
 Gjord av Ludwig och yusuf
+
+<h2>Produktbesrkvining</h2>
+
+En applikation för ett varuhus som är länkat med en databas
+
+<h2>Produktmål</h2>
+
+Vårt mål är 100 användare inom 1sta månaden
+
 
 ## Installations Guide
 ### Backend Commands to run
