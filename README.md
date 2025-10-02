@@ -1,4 +1,4 @@
-Inventarie Manager App 
+Inventarie Manager App <br> 
 Gjord av Ludwig och yusuf
 
 <h2>Produktbesrkvining</h2>
