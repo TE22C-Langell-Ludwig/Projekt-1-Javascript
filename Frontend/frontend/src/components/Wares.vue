@@ -1,38 +1,38 @@
 <template>
-    <h2 class="title"><br>Warehouse</h2>
-    <div class="columns">
-        <div class="searching column">
-            <h1>Search Field</h1>  
-            <input type="text" placeholder="Product Name">
-            <input type="text" placeholder="Product Category">
-            <input type="text" placeholder="Product Quantity">
-            <input type="button" value="Search For Matching Product">
-        </div>
-        <div class="wares column">
-            <p>List of wares</p>
-            <ul v-for="ware in list">
-            <li></li>
-            <li></li>
-            </ul>
-        </div>
-        <div class="adding column">
-            <h1>Adding Area(admin only)</h1>
-            <input v-model="name" type="text" placeholder="Product Name">
-            <input v-model="category" type="text" placeholder="Product Category">
-            <input v-model="quantity" type="text" placeholder="Product Quantity">
-            <input type="button" @click="additem" value="Add Product">
-            <p v-if="message">{{ message }}</p>
-        </div>
+  <h2 class="title"><br />Warehouse</h2>
+  <div class="columns">
+    <div class="searching column">
+      <h1>Search Field</h1>
+      <input type="text" placeholder="Product Name" />
+      <input type="text" placeholder="Product Category" />
+      <input type="text" placeholder="Product Quantity" />
+      <input type="button" value="Search For Matching Product" />
     </div>
+    <div class="wares column">
+      <p>List of wares</p>
+      <ul v-for="ware in list">
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+    <div class="adding column">
+      <h1>Adding Area(admin only)</h1>
+      <input v-model="name" type="text" placeholder="Product Name" />
+      <input v-model="category" type="text" placeholder="Product Category" />
+      <input v-model="quantity" type="text" placeholder="Product Quantity" />
+      <input type="button" @click="additem" value="Add Product" />
+      <p v-if="message">{{ message }}</p>
+    </div>
+  </div>
 </template>
 <script>
-import axios from 'axios';
-export default{
-    data(){
-        return { name: "", category: "", quantity: "", AddedAt: "",warelist: [] }
-    },
-    methods: {
-        /*
+import axios from "axios";
+export default {
+  data() {
+    return { name: "", category: "", quantity: "", AddedAt: "", warelist: [] };
+  },
+  methods: {
+    /*
             method Get all items from db in array
 
             if item adding is alike anything in array 
@@ -45,14 +45,11 @@ export default{
 
 
             async additem(){
-            
-            axios.fetch("http://localhost:5000/api/products", {
-                    name:  this.name,
-                    category: this.category,
-                    quantity: this.quantity,
-                });
-            
-
+                        
+        const cursor = db.collection('products').find({
+             category: this.category,
+             name:  this.name
+        });
                 
             const array = Array()
 
@@ -71,39 +68,31 @@ export default{
         }
 
         */
-        async additem(){
-            try{
-                axios.post("http://localhost:5000/api/products", {
-                    name: this.name,
-                    category: this.category,
-                    quantity: this.quantity,
-                });
-                this.message = "produkt tillagd";
-            } catch {
-                this.message = "Någonting gick fel"
-            }
-        },
-        async updatelist(){
-            try {
-              const res =await fetch ('${import.meta.env.VITE_API_BASE_URL}/api/products', {
-              
-              })
-            } catch (error) {
-              
-            }
-        }  
-    }
+    async additem() {
+      try {
+        axios.post("http://localhost:5000/api/products", {
+          name: this.name,
+          category: this.category,
+          quantity: this.quantity,
+        });
+        this.message = "produkt tillagd";
+      } catch {
+        this.message = "Någonting gick fel";
+      }
+    },
+    async updatelist() {
+      try {
+        const res = await fetch("${import.meta.env.VITE_API_BASE_URL}/api/products", {});
+      } catch (error) {}
+    },
+  },
 };
-
-
 </script>
-
-
 
 <style>
 :root {
-  --primary-bg: darkkhaki;       /* darkkhaki-like */
-  --secondary-bg: #969650;     /* rgb(150, 150, 80) */
+  --primary-bg: darkkhaki; /* darkkhaki-like */
+  --secondary-bg: #969650; /* rgb(150, 150, 80) */
   --text-color: #000;
   --title-size: 2.5rem;
   --body-font-size: 1.2rem;
@@ -173,7 +162,8 @@ body {
   font-size: 1.3rem;
 }
 
-.column input[type="text"], .column button {
+.column input[type="text"],
+.column button {
   width: 100%;
   padding: var(--input-padding);
   margin-bottom: 0.5rem;
@@ -188,5 +178,4 @@ body {
   padding-left: 1rem;
   list-style-type: disc;
 }
-
 </style>
