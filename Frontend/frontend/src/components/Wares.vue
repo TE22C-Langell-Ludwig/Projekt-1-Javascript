@@ -3,24 +3,23 @@
     <div class="columns">
         <div class="searching column">
             <h1>Search Field</h1>  
-            <input type="text" placeholder="Product Name">
-            <input type="text" placeholder="Product Category">
-            <input type="text" placeholder="Product Quantity">
-            <input type="button" value="Search For Matching Product">
+            <input v-model="searchText" type="text" placeholder="Product Name">
         </div>
         <div class="wares column">
             <p>List of wares</p>
             <ul>
-            <li v-for= "item in warelist">{{ item.name }}, {{ item.quantity }} in stock</li>
+            <li v-for="item in filteredWares">{{ item.name }}, {{ item.quantity }} in stock</li>
             </ul>
         </div>
-        <div class="adding column">
-            <h1>Adding Area(admin only)</h1>
+        <p v-if="addingText"></p>
+        <div class="adding column" v-if="isAdmin">
+            
+            <h1>Adding Area</h1>
             <input v-model="name" type="text" placeholder="Product Name">
             <input v-model="category" type="text" placeholder="Product Category">
             <input v-model="quantity" type="text" placeholder="Product Quantity">
             <input type="button" @click="additem" value="Add Product">
-            <p v-if="message">{{ message }}</p>
+            <p v-if="produktMessage"> {{ produktMessage }}</p>
         </div>
     </div>
 </template>
@@ -28,10 +27,11 @@
 import axios from 'axios';
 export default{
     data(){
-        return { name: "", category: "", quantity: "", AddedAt: "",warelist: [] }
+        return { name: "", category: "", quantity: "", AddedAt: "",warelist: [], searchText: "" , isAdmin:false, addingText:""}
     },
     mounted(){
       this.updatelist();
+      this.getUserRole();
     },
     methods: {
         /*
@@ -45,17 +45,6 @@ export default{
             
             just add in normal way 
 
-
-            async additem(){
-            
-            axios.fetch("http://localhost:5000/api/products", {
-                    name:  this.name,
-                    category: this.category,
-                    quantity: this.quantity,
-                });
-            
-
-                
             const array = Array()
 
             if (){
@@ -73,6 +62,18 @@ export default{
         }
 
         */
+        async getUserRole(){
+          try{
+            this.isAdmin = localStorage.getItem("admin") === "true";
+          } catch {
+            this.addingText = "Something went wrong you are either not admin or something else happened"
+          }
+          
+
+
+
+
+        },
         async additem(){
             try{
                 await axios.post("http://localhost:5000/api/products", {
@@ -80,10 +81,10 @@ export default{
                     category: this.category,
                     quantity: this.quantity,
                 });
-                this.message = "produkt tillagd";
+                this.produktMessage = "Produkt Tillagd";
                 this.updatelist();
             } catch {
-                this.message = "Någonting gick fel"
+                this.produktMessage = "Någonting gick fel"
             }
         },
         async updatelist(){
@@ -94,6 +95,16 @@ export default{
               console.error("something Went Wrong Bungus")
             }
         }  
+    },
+    computed: {
+        filteredWares() {
+            if (!this.searchText) {
+                return this.warelist;
+            }
+            return this.warelist.filter(item =>
+                item.name.toLowerCase().includes(this.searchText.toLowerCase())
+            );
+        }
     }
 };
 

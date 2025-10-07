@@ -26,6 +26,7 @@ export default{
 
                 });
                 this.message = "inloggning lyckades";
+                localStorage.setItem("admin", res.data.admin);
             } catch {
                 this.message = "felaktiga uppgifter eller 2FA-kod"
             }

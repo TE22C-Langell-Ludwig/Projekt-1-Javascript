@@ -79,7 +79,7 @@ app.post("/api/login", async (req, res) => {
         expiresIn:
             "1h"
     });
-    res.json({ token: jwtToken });
+    res.json({ token: jwtToken, admin: user.admin });
 
 });
 
