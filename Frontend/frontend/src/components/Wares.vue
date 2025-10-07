@@ -1,9 +1,23 @@
 <template>
-    <h2 class="title"><br>Warehouse</h2>
+    
+      <h2 class="title"><br>Inventory</h2>
+      <div class="searchField">
+      <p>Search Field</p>
+      <input v-model="searchText" type="text" placeholder="Product Name">
+    </div>
     <div class="columns">
-        <div class="searching column">
-            <h1>Search Field</h1>  
-            <input v-model="searchText" type="text" placeholder="Product Name">
+        <div class="User column" v-if="isAdmin">
+          <h2>Användarhantering</h2>
+            <input type="text" v-model="userName" placeholder="Användarnamn" required/>
+            <input type="text" v-model="userEmail" placeholder="Email" required/>
+            <input type="password" v-model="userPassword" placeholder="Lösenord" required/>
+            <p>Admin?</p>
+            <input type="checkbox" v-model="userRole">
+            <input type="button" @click="addusers" value="Add a user">
+            <p v-if="userMessage"></p>
+          <ul>
+            <li v-for="user in usersList" >user: {{ user.name }} | Admin: {{ user.admin }}</li>
+          </ul>
         </div>
         <div class="wares column">
             <p>List of wares</p>
@@ -15,7 +29,7 @@
         <div class="adding column" v-if="isAdmin">
             
             <h1>Adding Area</h1>
-            <input v-model="name" type="text" placeholder="Product Name">
+            <input v-model="productname" type="text" placeholder="Product Name">
             <input v-model="category" type="text" placeholder="Product Category">
             <input v-model="quantity" type="text" placeholder="Product Quantity">
             <input type="button" @click="additem" value="Add Product">
@@ -27,11 +41,12 @@
 import axios from 'axios';
 export default{
     data(){
-        return { name: "", category: "", quantity: "", AddedAt: "",warelist: [], searchText: "" , isAdmin:false, addingText:""}
+        return { itemname: "", category: "", quantity: "", AddedAt: "",warelist: [], searchText: "" , isAdmin:false, addingText:"", usersList:[], userName:"",userEmail:"",userPassword:"",userRole:false}
     },
     mounted(){
       this.updatelist();
       this.getUserRole();
+      this.updateusers();
     },
     methods: {
         /*
@@ -77,7 +92,7 @@ export default{
         async additem(){
             try{
                 await axios.post("http://localhost:5000/api/products", {
-                    name: this.name,
+                    name: this.productname,
                     category: this.category,
                     quantity: this.quantity,
                 });
@@ -92,9 +107,31 @@ export default{
               const res = await axios.get("http://localhost:5000/api/products");
               this.warelist =res.data;
             } catch (error) {
-              console.error("something Went Wrong Bungus")
+              console.error("something Went Wrong with updating items")
             }
-        }  
+        },
+        async updateusers(){
+            try {
+              const res = await axios.get("http://localhost:5000/api/users");
+              this.usersList =res.data;
+            } catch (error) {
+              console.error("something Went Wrong with updating users")
+            }
+        },
+        async addusers(){
+            try{
+                await axios.post("http://localhost:5000/api/users", {
+                    name: this.userName,
+                    email:this.userEmail,
+                    password: this.userPassword,
+                    admin: this.userRole,
+                });
+                this.userMessage = "användare Tillagd";
+                this.updateusers();
+            } catch {
+                this.userMessage = "Någonting gick fel"
+            }
+        },
     },
     computed: {
         filteredWares() {
@@ -115,8 +152,8 @@ export default{
 
 <style>
 :root {
-  --primary-bg: darkkhaki;       /* darkkhaki-like */
-  --secondary-bg: #969650;     /* rgb(150, 150, 80) */
+  --primary-bg: rgb(189, 183, 107);      
+  --secondary-bg: rgb(150, 150, 80);  
   --text-color: #000;
   --title-size: 2.5rem;
   --body-font-size: 1.2rem;
@@ -149,7 +186,6 @@ body {
   margin-bottom: 2rem;
   font-weight: bold;
 }
-
 .nav {
   display: flex;
   justify-content: center;
@@ -201,5 +237,21 @@ body {
   padding-left: 1rem;
   list-style-type: disc;
 }
+.searchField {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;  
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 15px;
+  background-color: var(--secondary-bg); 
+  width: 30%;
+  padding: 10px;
+  margin-left: 35%;
+} 
 
+.searchField input {
+  width: 250px;
+  height: 50px;
+}
 </style>
