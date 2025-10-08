@@ -1,9 +1,9 @@
 Inventarie Manager App <br> 
 Gjord av Ludwig och yusuf
 
-<h2>Produktbesrkvining</h2>
+<h2>Produktbeskrivning</h2>
 
-En applikation för ett varuhus som är länkat med en databas
+En applikation för ett varuhus som är länkat med en databas 
 
 <h2>Produktmål</h2>
 
@@ -18,7 +18,7 @@ Vårt mål är 100 användare inom 1sta månaden
 
 ### Frontend Commands to run
 
-``` cd frontend ```
+``` cd frontend frontend ```
 ``` npm init vue@latest ```
 pick router and pinia when prompted but skip every other optional and the example code
 ``` npm run dev ```
